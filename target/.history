@@ -43,3 +43,4 @@ show
 run
 exit
 run
+val byte = 0

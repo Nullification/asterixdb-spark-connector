@@ -21,6 +21,7 @@ package org.apache.spark.sql.asterix
 import org.apache.asterix.connector.QueryType.QueryType
 import org.apache.spark.sql.{DataFrame, SQLContext}
 import org.apache.asterix.connector._
+import org.apache.spark.storage.StorageLevel
 
 /**
  * This class extends SQLContext (implicitly) to query AsterixDB
@@ -104,7 +105,8 @@ class SQLContextFunctions(@transient sqlContext:SQLContext)
       case QueryType.SQLPP => sc.sqlpp(query)
     }
 
-    val partitionedRdd = rdd.repartitionAsterix(rdd.getPartitions.length * rdd.configuration.nReaders)
+    val partitionedRdd = rdd
+    partitionedRdd.persist(StorageLevel.MEMORY_AND_DISK)
 
     if(infer) {
       log.info("Preparing schema")

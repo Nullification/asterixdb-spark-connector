@@ -32,13 +32,13 @@ resolvers += Resolver.mavenLocal
 run in Compile <<= Defaults.runTask(fullClasspath in Compile, mainClass in (Compile, run), runner in (Compile, run))
 
 //Hyracks
-libraryDependencies += "org.apache.hyracks" % "hyracks-api" % hyracksVersion exclude("org.slf4j", "slf4j-jcl")
+libraryDependencies += "org.apache.hyracks" % "hyracks-api" % hyracksVersion exclude("org.slf4j", "slf4j-jcl") exclude("com.fasterxml.jackson.core", "jackson-databind")
 
-libraryDependencies += "org.apache.hyracks" % "hyracks-client" % hyracksVersion exclude("org.slf4j", "slf4j-jcl")
+libraryDependencies += "org.apache.hyracks" % "hyracks-client" % hyracksVersion exclude("org.slf4j", "slf4j-jcl") exclude("com.fasterxml.jackson.core", "jackson-databind")
 
-libraryDependencies += "org.apache.hyracks" % "hyracks-control-nc" % hyracksVersion exclude("org.slf4j", "slf4j-jcl")
+libraryDependencies += "org.apache.hyracks" % "hyracks-control-nc" % hyracksVersion exclude("org.slf4j", "slf4j-jcl") exclude("com.fasterxml.jackson.core", "jackson-databind")
 
-libraryDependencies += "org.apache.hyracks" % "hyracks-dataflow-common" % hyracksVersion exclude("org.slf4j", "slf4j-jcl")
+libraryDependencies += "org.apache.hyracks" % "hyracks-dataflow-common" % hyracksVersion exclude("org.slf4j", "slf4j-jcl") exclude("com.fasterxml.jackson.core", "jackson-databind")
 
 //Spark
 libraryDependencies += "org.apache.spark" %% "spark-sql" % sparkVersion % sparkScope
