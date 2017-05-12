@@ -75,25 +75,10 @@ object Example {
     sc = new SparkContext(conf)
   }
 
-  /**
-   * This example shows how to get AsterixRDD from an AQL query.
-   * AsterixRDD usually is not the most useful form as it returns the result
-   * as RDD[String]. Until now, AsterixDB does not provide a Java driver. Once
-   * that we have it. This form can be useful and less memory intensive.
-   */
-  def runAsterixRDD() = {
-    /* Get AstreixRDD from SparkContext using AQL query.
-     * You can use sqlpp() to get the result from running SQL++ query.
-     */
-      val rddAql = sc.aql(aqlQuery)
-
-      println("AQL result")
-      rddAql.collect().foreach(println)
-  }
 
   /**
    * This is the best way to interact with AsterixDB using Spark.
-   * the query (SQL++ or AQL) result is returned as a DataFrame which
+   * the query (SQL++) result is returned as a DataFrame which
    * can then be used with many of Spark libraries.
    */
   def runAsterixWithDataFrame() = {
@@ -101,11 +86,8 @@ object Example {
     val sqlContext = new SQLContext(sc)
 
     /* Get DataFrame by running SQL++ query (AQL also supported by calling aql())
-     * infer = true means that we tell AsterixDB to provide Spark the result schema.
-     * if that throws an exception, probably you AsterixDB doesn't have the schema inferencer.
-     * Therefore, let infer = false and Spark will do the job (with the cost of additional scan).
      */
-    val dfSqlpp = sqlContext.sqlpp(sqlppQuery, infer = true)
+    val dfSqlpp = sqlContext.sqlpp(sqlppQuery)
 
     println("SQL++ DataFrame result")
     dfSqlpp.printSchema()
@@ -118,7 +100,6 @@ object Example {
    */
   def main (args: Array[String]): Unit = {
     init()
-    runAsterixRDD()
     runAsterixWithDataFrame()
     sc.stop()
   }

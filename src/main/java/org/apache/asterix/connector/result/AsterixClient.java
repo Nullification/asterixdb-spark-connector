@@ -51,7 +51,7 @@ public class AsterixClient {
     private final IFrameTupleAccessor fta;
     private final IFrame frame;
     private final Queue<String> resultList;
-    private final AsterixResultReader resultReader;
+    private final ResultReader resultReader;
     private final Runnable prefetchThread;
     private final Configuration configuration;
 
@@ -61,7 +61,7 @@ public class AsterixClient {
      * @param resultReader AstreixDB result reader.
      * @throws HyracksDataException
      */
-    public AsterixClient(AsterixResultReader resultReader) throws HyracksDataException
+    public AsterixClient(ResultReader resultReader) throws HyracksDataException
     {
         configuration = resultReader.configuration();
         fta = new ResultFrameTupleAccessor();
@@ -69,12 +69,7 @@ public class AsterixClient {
         frame = new VSizeFrame(new FrameManager(frameSize));
         this.resultReader = resultReader;
         resultList = new LinkedList<>();
-        prefetchThread = new Runnable() {
-            @Override
-            public void run() {
-                prefetch();
-            }
-        };
+        prefetchThread = this::prefetch;
         prefetch();
     }
 
@@ -132,7 +127,7 @@ public class AsterixClient {
      * @return tuple as a string JSON object.
      * @throws AsterixConnectorException
      */
-    public String getResultTuple() throws AsterixConnectorException{
+    public String getResultTuple() throws AsterixConnectorException {
         if(resultList.size() == 0 && resultReader.isPartitionReadComplete())
             return null;
         else if(resultList.size() < configuration.prefetchThreshold()) {
