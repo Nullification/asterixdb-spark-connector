@@ -4,7 +4,7 @@ This an Apache Spark connector which allows it to consume data from Apache Astre
 
 SQL++ ONLY
 ---
-Currenlty the connector supports SQL++ only. AQL support should be available upon 
+Currenlty the connector supports SQL++ only. AQL support should be available soon... 
 
 Requirements
 ---
