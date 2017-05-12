@@ -69,8 +69,6 @@ class AsterixHttpAPI(configuration: Configuration) extends org.apache.spark.Logg
 
 
   def getResultLocations(response: String) : ResultLocations = {
-    val om = new ObjectMapper()
-
     val pair = getHandle(response)
 
     val locationBean = read[LocationBean](getRequest(pair._2))
@@ -86,7 +84,7 @@ class AsterixHttpAPI(configuration: Configuration) extends org.apache.spark.Logg
       case e:JsonProcessingException => throw new AsterixConnectorException("Error while parsing response", e)
     }
 
-    val handle = jsonResponse.get("handle").asText();
+    val handle = jsonResponse.get("handle").asText()
     jsonResponse.get("status").asText("error") match {
       case "success" => (parseHandle(handle), handle)
       case _ => throw new AsterixConnectorException(jsonResponse.get("error-code").asInt(),

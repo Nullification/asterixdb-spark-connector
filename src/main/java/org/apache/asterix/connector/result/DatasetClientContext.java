@@ -16,18 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.asterix.connector.result;
+
+import org.apache.hyracks.api.context.IHyracksCommonContext;
+import org.apache.hyracks.api.io.IIOManager;
+import org.apache.hyracks.control.nc.resources.memory.FrameManager;
 
 /**
- * Specify the versions of both Hyracks and Spark
+ * This is a connector specific DatasetClientContext as [[org.apache.hyracks.client.dataset]] changed
+ * visibility.
  */
-object Versions {
-  val scala = "2.10.5"
-  val hyracksVersion = "0.3.2-SNAPSHOT"
-  val asterixVersion = "0.9.2-SNAPSHOT"
-  val sparkVersion = "1.6.1"
-  val httpComponentsVersion = "4.5"
-  val liftJsonVersion = "2.6.2"
-  val orgJsonVersion = "20140107"
-  val junitVersion = "4.11"
-  val sparkScope = "compile"
+public class DatasetClientContext extends FrameManager implements IHyracksCommonContext {
+
+    public DatasetClientContext(int frameSize) {
+        super(frameSize);
+    }
+
+    @Override
+    public IIOManager getIoManager() {
+        return null;
+    }
+
 }

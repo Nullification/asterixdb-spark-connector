@@ -19,13 +19,10 @@
 package org.apache.asterix.connector.result
 
 import java.net.InetSocketAddress
-import java.nio.ByteBuffer
-
 
 import org.apache.asterix.connector.{Configuration, AsterixConnectorException, Handle, AddressPortPair}
 import org.apache.hyracks.api.comm.{FrameHelper, IFrame}
 import org.apache.hyracks.api.dataset.IDatasetInputChannelMonitor
-import org.apache.hyracks.client.dataset.DatasetClientContext
 import org.apache.hyracks.client.net.ClientNetworkManager
 import org.apache.hyracks.comm.channels.DatasetNetworkInputChannel
 import org.apache.spark.Logging
