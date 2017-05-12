@@ -11,7 +11,7 @@ Requirements
 - Java version 8
 - SBT version >= 0.3.17
 - Scala 2.10 (Never tested on 2.11)
-- Apache AsterixDB version >= 0.9.1 (up and running)
+- Apache AsterixDB version >= 0.9.2 (up and running)
 
 Build
 ---
@@ -71,7 +71,7 @@ libraryDependencies += "org.apache.asterix" %% "asterixdb-spark-connector" % $SP
 - Replace ``$SPARK_VERSION`` with the required Apache Spark version
 
 
-Using <b>spark-shell</b>
+#### Using <b>spark-shell</b>
 ---
 - Using local-repo to get the connector:
 ```bash

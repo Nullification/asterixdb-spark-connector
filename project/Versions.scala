@@ -22,8 +22,8 @@
  */
 object Versions {
   val scala = "2.10.5"
-  val hyracksVersion = "0.3.1-SNAPSHOT"
-  val asterixVersion = "0.9.1-SNAPSHOT"
+  val hyracksVersion = "0.3.2-SNAPSHOT"
+  val asterixVersion = "0.9.2-SNAPSHOT"
   val sparkVersion = "1.6.1"
   val httpComponentsVersion = "4.5"
   val liftJsonVersion = "2.6.2"
