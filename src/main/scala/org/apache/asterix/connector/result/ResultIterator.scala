@@ -24,7 +24,7 @@ package org.apache.asterix.connector.result
  * @param resultReader AsterixResultReader to get the JSON format.
  * @tparam String String JSON format.
  */
-class AsterixResultIterator[String] (resultReader: AsterixResultReader) extends Iterator[String] {
+class ResultIterator[String] (resultReader: ResultReader) extends Iterator[String] {
 
   private[this] val resultClient = new AsterixClient(resultReader)
 

@@ -39,7 +39,7 @@ import org.apache.spark.Logging
  * @param handle Result handle from AsterixDB HTTP API
  * @param configuration Connector configurations
  */
-class AsterixResultReader(
+class ResultReader(
   addressPortPair: AddressPortPair,
   partition: Int,
   handle: Handle,

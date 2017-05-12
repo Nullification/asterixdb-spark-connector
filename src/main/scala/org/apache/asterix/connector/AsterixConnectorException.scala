@@ -20,10 +20,16 @@ package org.apache.asterix.connector
 
 import org.apache.commons.lang.StringEscapeUtils
 
-class AsterixConnectorException(message: String)
-  extends Exception(StringEscapeUtils.unescapeJava("\n" + message.replaceAll("&lt([^.]*?)&gt","$1"))){
+class AsterixConnectorException(message: String, throwable: Throwable = null)
+  extends Exception(
+    StringEscapeUtils.unescapeJava("\n" + message.replaceAll("&lt([^.]*?)&gt","$1")),
+    throwable){
 
   def this(exception: Exception) {
-    this(exception.getMessage)
+    this(exception.getMessage, exception)
+  }
+
+  def this(errorCode: Int, summary: String) {
+    this("Error " + errorCode + " summary: " + summary)
   }
 }

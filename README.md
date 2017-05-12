@@ -2,14 +2,18 @@ AsterixDB Spark Connector
 ============================
 This an Apache Spark connector which allows it to consume data from Apache AstreixDB.
 
-###Requirements
+SQL++ ONLY
+---
+Currenlty the connector supports SQL++ only. AQL support should be available upon 
+
+Requirements
 ---
 - Java version 8
 - SBT version >= 0.3.17
 - Scala 2.10 (Never tested on 2.11)
-- Apache AsterixDB version >= 0.8.8 (up and running)
+- Apache AsterixDB version >= 0.9.1 (up and running)
 
-###Build
+Build
 ---
 - Clone and go the asterixdb-spark-connector directory.
 - Check ``project/Versions.scala`` if the specified versions of Apache Spark and Apache Hyracks are not similar to what you have.
@@ -27,7 +31,8 @@ sbt assembly
 sbt publish
 ```
 
-###Configuration
+Configuration
+---
 - asterixdb-spark-connector requires to be configure using SparkConf (See the example for clarification):
 
 Property Name | Default | Description
@@ -44,7 +49,7 @@ spark.asterix.frame.number | 2 | Number of AsterixDB frames to read at a time. <
 spark.asterix.reader.number | 2 | The number of parallel readers per AsterixDB result partition.
 spark.asterix.prefetch.threshold | 2 | The remaining number of unread tuples before trigger the pre-fetcher. <br> This should NOT be big as the intermediate result can consume large amount memory.
 
-###Using the connector in your code
+Using the connector in your code
 ---
 #### Using SBT and Maven
 - Build ``asterixdb-spark-connector`` and publish it to your local-repo: 
@@ -66,7 +71,8 @@ libraryDependencies += "org.apache.asterix" %% "asterixdb-spark-connector" % $SP
 - Replace ``$SPARK_VERSION`` with the required Apache Spark version
 
 
-####Using <b>spark-shell</b>
+Using <b>spark-shell</b>
+---
 - Using local-repo to get the connector:
 ```bash
 bin/spark-shell [--master Spark master address or ignore for local run] \\
@@ -83,9 +89,9 @@ bin/spark-shell [--master Spark master address or ignore for local run] \\
 --conf spark.asterix.frame.size=ASTERIXDB_FRAME_SIZE \\
 ```
 
-###Example
+Example
 Please see the following:
-##### [AQL and SQL++ example.](https://github.com/Nullification/asterixdb-spark-connector/blob/master/src/main/scala/org/apache/asterix/connector/example/Example.scala)
+##### [SQL++ example.](https://github.com/Nullification/asterixdb-spark-connector/blob/master/src/main/scala/org/apache/asterix/connector/example/Example.scala)
 ##### Using [Apache Zeppelin.](https://zeppelin.apache.org)
 -  [Load zeppelin-notebook example.](https://github.com/Nullification/asterixdb-spark-connector/tree/master/zeppelin-notebook/asterixdb-spark-example)
 

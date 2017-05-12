@@ -76,6 +76,12 @@ class SparkContextFunctions(@transient sc: SparkContext) extends Serializable wi
 
   private val api = new AsterixHttpAPI(configuration)
 
+  /**
+   * AQL Query should work after https://asterix-gerrit.ics.uci.edu/#/c/1653/
+   * AQL might get deprecated soon.
+   * @param aql
+   * @return
+   */
   def aql(aql:String): AsterixRDD = {
     executeQuery(aql, QueryType.AQL)
   }
@@ -85,23 +91,12 @@ class SparkContextFunctions(@transient sc: SparkContext) extends Serializable wi
   }
 
   private def executeQuery(query: String, queryType: QueryType): AsterixRDD = {
-    val handle = queryType match {
+    val resultLocations = queryType match {
       case QueryType.AQL => api.executeAQL(query)
       case QueryType.SQLPP => api.executeSQLPP(query)
     }
-    var isRunning = true
 
-    while(isRunning) {
-      val status = api.getStatus(handle)
-      status match {
-        case Status.SUCCESS => isRunning = false
-        case Status.FAILED => throw new AsterixConnectorException("Job " + handle.jobId + " failed.")
-        case _ => wait(WaitTime) //Status.RUNNING
-      }
-
-    }
-    val resultLocations = api.getResultLocations(handle)
-    val rdd = new AsterixRDD(sc, query, api, resultLocations, handle, configuration)
+    val rdd = new AsterixRDD(sc, query, api, resultLocations, configuration)
     rdd
   }
 
