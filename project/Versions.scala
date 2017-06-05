@@ -29,5 +29,5 @@ object Versions {
   val liftJsonVersion = "2.6.2"
   val orgJsonVersion = "20140107"
   val junitVersion = "4.11"
-  val sparkScope = "compile"
+  val sparkScope = "provided"
 }
